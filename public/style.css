@@ -258,3 +258,15 @@ body.light #portfolioTable thead {
       font-size: 10px;
    }
 }
+@media (max-width: 768px) {
+    .container {
+        overflow-x: auto;
+    }
+}
+
+/* Make all tables fully responsive */
+table {
+    width: 100%;
+    table-layout: auto; /* instead of fixed */
+    word-wrap: break-word;
+}
