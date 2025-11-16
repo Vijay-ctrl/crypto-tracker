@@ -68,6 +68,12 @@ select:hover,
    opacity: 0.9;
 }
 
+.table-container {
+   width: 100%;
+   overflow-x: auto;
+   /* allow horizontal scroll on small screens */
+}
+
 table {
    width: 100%;
    border-collapse: collapse;
@@ -75,6 +81,7 @@ table {
    border-radius: 8px;
    overflow: hidden;
    transition: background 0.4s, color 0.4s;
+   table-layout: auto;
 }
 
 body.light table {
@@ -98,6 +105,7 @@ th,
 td {
    padding: 12px;
    text-align: center;
+   word-wrap: break-word;
 }
 
 tr:nth-child(even) {
@@ -157,18 +165,6 @@ body.light .portfolio {
    margin-bottom: 10px;
 }
 
-#portfolioTable {
-   width: 100%;
-   border-collapse: collapse;
-   margin-top: 10px;
-}
-
-#portfolioTable th,
-#portfolioTable td {
-   padding: 8px;
-   text-align: center;
-}
-
 #portfolioTotal {
    margin-top: 10px;
    font-weight: bold;
@@ -189,6 +185,7 @@ body.light #portfolioTable thead {
    background: rgba(255, 255, 255, 0.9);
 }
 
+/* Responsive adjustments */
 @media (max-width: 992px) {
 
    th,
@@ -222,12 +219,9 @@ body.light #portfolioTable thead {
       font-size: 12px;
    }
 
-   .container {
-      overflow-x: auto;
-   }
-
    table {
       min-width: 900px;
+      /* ensures horizontal scroll if table is too wide */
    }
 }
 
@@ -257,5 +251,10 @@ body.light #portfolioTable thead {
    td canvas {
       max-width: 80px;
       height: 30px;
+   }
+
+   button {
+      padding: 4px 6px;
+      font-size: 10px;
    }
 }

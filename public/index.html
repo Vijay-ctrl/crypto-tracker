@@ -29,43 +29,47 @@
          <div class="portfolio-controls">
             <input type="text" id="portfolioSearch" placeholder="Search portfolio..." />
          </div>
-         <table id="portfolioTable">
-            <thead>
-               <tr>
-                  <th>Name</th>
-                  <th>Quantity</th>
-                  <th>Purchase Price</th>
-                  <th>Current Price</th>
-                  <th>Total Value</th>
-                  <th>P/L %</th>
-                  <th>Action</th>
-               </tr>
-            </thead>
-            <tbody id="portfolioBody">
-               <!-- Portfolio coins will appear here -->
-            </tbody>
-         </table>
+         <div class="table-container">
+            <table id="portfolioTable">
+               <thead>
+                  <tr>
+                     <th>Name</th>
+                     <th>Quantity</th>
+                     <th>Purchase Price</th>
+                     <th>Current Price</th>
+                     <th>Total Value</th>
+                     <th>P/L %</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+               <tbody id="portfolioBody">
+                  <!-- Portfolio coins will appear here -->
+               </tbody>
+            </table>
+         </div>
          <p id="portfolioTotal">Total Portfolio Value: $0</p>
          <canvas id="portfolioChart" height="100"></canvas>
       </div>
 
-      <table id="cryptoTable">
-         <thead>
-            <tr>
-               <th data-sort="rank">#</th>
-               <th data-sort="name">Name</th>
-               <th data-sort="current_price">Price</th>
-               <th data-sort="price_change_percentage_1h_in_currency">1h %</th>
-               <th data-sort="price_change_percentage_24h">24h %</th>
-               <th data-sort="price_change_percentage_7d_in_currency">7d %</th>
-               <th data-sort="market_cap">Market Cap</th>
-               <th data-sort="total_volume">Volume (24h)</th>
-               <th data-sort="circulating_supply">Circulating Supply</th>
-               <th>7d Chart</th>
-            </tr>
-         </thead>
-         <tbody id="cryptoBody"></tbody>
-      </table>
+      <div class="table-container">
+         <table id="cryptoTable">
+            <thead>
+               <tr>
+                  <th data-sort="rank">#</th>
+                  <th data-sort="name">Name</th>
+                  <th data-sort="current_price">Price</th>
+                  <th data-sort="price_change_percentage_1h_in_currency">1h %</th>
+                  <th data-sort="price_change_percentage_24h">24h %</th>
+                  <th data-sort="price_change_percentage_7d_in_currency">7d %</th>
+                  <th data-sort="market_cap">Market Cap</th>
+                  <th data-sort="total_volume">Volume (24h)</th>
+                  <th data-sort="circulating_supply">Circulating Supply</th>
+                  <th>7d Chart</th>
+               </tr>
+            </thead>
+            <tbody id="cryptoBody"></tbody>
+         </table>
+      </div>
 
       <div class="pagination">
          <button id="prevPage">⬅ Prev</button>
