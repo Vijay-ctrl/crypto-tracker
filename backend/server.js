@@ -28,7 +28,7 @@ connectDB();
 
 app.use(
    cors({
-      origin: true,
+      origin: process.env.FRONTEND_URL,
       credentials: true,
    })
 );
@@ -74,7 +74,7 @@ async function updateCoinList() {
    try {
       if (!process.env.COINGECKO_API_KEY) {
          console.error(
-            "COINGECKO_API_KEY is not configured in .env"
+            "COINGECKO_API_KEY is not configured in environment variables"
          );
 
          return;
@@ -142,8 +142,7 @@ app.get("/", (req, res) => {
          );
 
          res.status(500).json({
-            error:
-               "Unable to load application",
+            error: "Unable to load application",
          });
       }
    });
@@ -164,8 +163,7 @@ app.get(
    "/api/price/:coin",
    async (req, res) => {
       try {
-         const rawQuery =
-            req.params.coin;
+         const rawQuery = req.params.coin;
 
          if (!rawQuery) {
             return res.status(400).json({
@@ -215,11 +213,8 @@ app.get(
 
          if (!match) {
             return res.status(404).json({
-               error:
-                  "Coin not found",
-
-               user_input:
-                  rawQuery,
+               error: "Coin not found",
+               user_input: rawQuery,
             });
          }
 
@@ -227,12 +222,9 @@ app.get(
          // Check API Key
          // ------------------------------------------------
 
-         if (
-            !process.env
-               .COINGECKO_API_KEY
-         ) {
+         if (!process.env.COINGECKO_API_KEY) {
             console.error(
-               "COINGECKO_API_KEY is not configured in .env"
+               "COINGECKO_API_KEY is not configured in environment variables"
             );
 
             return res.status(500).json({
@@ -245,54 +237,44 @@ app.get(
          // Fetch Current Price
          // ------------------------------------------------
 
-         const response =
-            await axios.get(
-               "https://api.coingecko.com/api/v3/simple/price",
-               {
-                  params: {
-                     ids: match.id,
-                     vs_currencies:
-                        "usd",
-                  },
+         const response = await axios.get(
+            "https://api.coingecko.com/api/v3/simple/price",
+            {
+               params: {
+                  ids: match.id,
+                  vs_currencies: "usd",
+               },
 
-                  headers: {
-                     Accept:
-                        "application/json",
+               headers: {
+                  Accept: "application/json",
 
-                     "x-cg-demo-api-key":
-                        process.env
-                           .COINGECKO_API_KEY,
-                  },
+                  "x-cg-demo-api-key":
+                     process.env.COINGECKO_API_KEY,
+               },
 
-                  timeout: 10000,
-               }
-            );
+               timeout: 10000,
+            }
+         );
 
          const price =
-            response.data?.[
-               match.id
-            ]?.usd ?? null;
+            response.data?.[match.id]?.usd ?? null;
 
          // ------------------------------------------------
          // Return Price
          // ------------------------------------------------
 
          return res.status(200).json({
-            user_input:
-               rawQuery,
+            user_input: rawQuery,
 
-            matched_id:
-               match.id,
+            matched_id: match.id,
 
             symbol: match.symbol
                ? match.symbol.toUpperCase()
                : "",
 
-            name:
-               match.name,
+            name: match.name,
 
-            price_usd:
-               price,
+            price_usd: price,
          });
       } catch (error) {
          console.error(
@@ -305,10 +287,7 @@ app.get(
          // CoinGecko Rate Limit
          // -----------------------------------------------
 
-         if (
-            error.response?.status ===
-            429
-         ) {
+         if (error.response?.status === 429) {
             return res.status(429).json({
                error:
                   "CoinGecko API rate limit exceeded. Please try again later.",
@@ -320,10 +299,8 @@ app.get(
          // -----------------------------------------------
 
          if (
-            error.response?.status ===
-            401 ||
-            error.response?.status ===
-            403
+            error.response?.status === 401 ||
+            error.response?.status === 403
          ) {
             return res.status(502).json({
                error:
@@ -332,8 +309,7 @@ app.get(
          }
 
          return res.status(500).json({
-            error:
-               "Unable to fetch price",
+            error: "Unable to fetch price",
          });
       }
    }
