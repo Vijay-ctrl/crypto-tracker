@@ -5,23 +5,30 @@ const nodemailer = require("nodemailer");
 
 const User = require("../models/User");
 
-
 // ========================================
 // Email Transporter
 // ========================================
+
 const transporter = nodemailer.createTransport({
-   service: "gmail",
+   host: "smtp.gmail.com",
+   port: 587,
+   secure: false,
 
    auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_APP_PASSWORD
-   }
+   },
+
+   connectionTimeout: 30000,
+   greetingTimeout: 30000,
+   socketTimeout: 30000
 });
 
 
 // ========================================
 // Generate JWT
 // ========================================
+
 const generateToken = (userId) => {
    return jwt.sign(
       { userId },
@@ -36,6 +43,7 @@ const generateToken = (userId) => {
 // ========================================
 // Register User
 // ========================================
+
 const register = async (req, res) => {
    try {
 
@@ -43,22 +51,19 @@ const register = async (req, res) => {
 
       if (!name || !email || !password) {
          return res.status(400).json({
-            message:
-               "Name, email and password are required"
+            message: "Name, email and password are required"
          });
       }
 
       if (name.trim().length < 2) {
          return res.status(400).json({
-            message:
-               "Name must contain at least 2 characters"
+            message: "Name must contain at least 2 characters"
          });
       }
 
       if (password.length < 6) {
          return res.status(400).json({
-            message:
-               "Password must be at least 6 characters"
+            message: "Password must be at least 6 characters"
          });
       }
 
@@ -72,8 +77,7 @@ const register = async (req, res) => {
 
       if (existingUser) {
          return res.status(409).json({
-            message:
-               "An account with this email already exists"
+            message: "An account with this email already exists"
          });
       }
 
@@ -93,8 +97,7 @@ const register = async (req, res) => {
       );
 
       res.status(201).json({
-         message:
-            "Account created successfully",
+         message: "Account created successfully",
 
          token,
 
@@ -113,8 +116,7 @@ const register = async (req, res) => {
       );
 
       res.status(500).json({
-         message:
-            "Server error during registration"
+         message: "Server error during registration"
       });
    }
 };
@@ -123,6 +125,7 @@ const register = async (req, res) => {
 // ========================================
 // Login User
 // ========================================
+
 const login = async (req, res) => {
    try {
 
@@ -130,8 +133,7 @@ const login = async (req, res) => {
 
       if (!email || !password) {
          return res.status(400).json({
-            message:
-               "Email and password are required"
+            message: "Email and password are required"
          });
       }
 
@@ -145,8 +147,7 @@ const login = async (req, res) => {
 
       if (!user) {
          return res.status(401).json({
-            message:
-               "Invalid email or password"
+            message: "Invalid email or password"
          });
       }
 
@@ -158,8 +159,7 @@ const login = async (req, res) => {
 
       if (!passwordMatch) {
          return res.status(401).json({
-            message:
-               "Invalid email or password"
+            message: "Invalid email or password"
          });
       }
 
@@ -168,8 +168,7 @@ const login = async (req, res) => {
       );
 
       res.status(200).json({
-         message:
-            "Login successful",
+         message: "Login successful",
 
          token,
 
@@ -188,8 +187,7 @@ const login = async (req, res) => {
       );
 
       res.status(500).json({
-         message:
-            "Server error during login"
+         message: "Server error during login"
       });
    }
 };
@@ -198,6 +196,7 @@ const login = async (req, res) => {
 // ========================================
 // Get Current User
 // ========================================
+
 const getMe = async (req, res) => {
    try {
 
@@ -207,8 +206,7 @@ const getMe = async (req, res) => {
 
       if (!user) {
          return res.status(404).json({
-            message:
-               "User not found"
+            message: "User not found"
          });
       }
 
@@ -230,8 +228,7 @@ const getMe = async (req, res) => {
       );
 
       res.status(500).json({
-         message:
-            "Unable to fetch user"
+         message: "Unable to fetch user"
       });
    }
 };
@@ -240,6 +237,7 @@ const getMe = async (req, res) => {
 // ========================================
 // Forgot Password
 // ========================================
+
 const forgotPassword = async (req, res) => {
    try {
 
@@ -247,8 +245,7 @@ const forgotPassword = async (req, res) => {
 
       if (!email) {
          return res.status(400).json({
-            message:
-               "Email is required"
+            message: "Email is required"
          });
       }
 
@@ -311,9 +308,6 @@ const forgotPassword = async (req, res) => {
 
       // ========================================
       // Password Reset URL
-      //
-      // React Router route:
-      // /reset-password
       // ========================================
 
       const resetUrl =
@@ -335,7 +329,6 @@ const forgotPassword = async (req, res) => {
          subject:
             "CryptoTracker - Reset Your Password",
 
-
          // Plain Text Email
          text: `
 Hello ${user.name},
@@ -355,7 +348,6 @@ ${frontendUrl}
 
 CryptoTracker
          `,
-
 
          // HTML Email
          html: `
@@ -566,6 +558,7 @@ CryptoTracker
 // ========================================
 // Reset Password
 // ========================================
+
 const resetPassword = async (req, res) => {
    try {
 
@@ -576,24 +569,21 @@ const resetPassword = async (req, res) => {
 
       if (!token) {
          return res.status(400).json({
-            message:
-               "Reset token is required"
+            message: "Reset token is required"
          });
       }
 
 
       if (!password) {
          return res.status(400).json({
-            message:
-               "New password is required"
+            message: "New password is required"
          });
       }
 
 
       if (password.length < 6) {
          return res.status(400).json({
-            message:
-               "Password must be at least 6 characters"
+            message: "Password must be at least 6 characters"
          });
       }
 
