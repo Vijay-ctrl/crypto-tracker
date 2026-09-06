@@ -1,0 +1,222 @@
+/* =========================================================
+   MARKET STATS
+========================================================= */
+
+.market-stats-grid {
+   width: 100%;
+
+   display: grid;
+
+   grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+   gap: 18px;
+
+   margin-bottom: 32px;
+}
+
+
+.stat-card {
+   min-width: 0;
+
+   display: flex;
+   align-items: center;
+
+   gap: 14px;
+
+   padding: 20px;
+
+   background: var(--surface);
+
+   border: 1px solid var(--border);
+   border-radius: 16px;
+
+   box-shadow: var(--shadow-sm);
+
+   transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+}
+
+.stat-card:hover {
+   transform: translateY(-3px);
+
+   border-color: var(--border-strong);
+
+   box-shadow: var(--shadow-md);
+}
+
+
+.stat-icon {
+   width: 46px;
+   height: 46px;
+
+   min-width: 46px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   border-radius: 12px;
+
+   background: #eff6ff;
+   color: #2563eb;
+}
+
+
+.stat-content {
+   min-width: 0;
+
+   display: flex;
+   flex-direction: column;
+
+   gap: 5px;
+}
+
+
+.stat-label {
+   overflow: hidden;
+
+   color: var(--text-muted);
+
+   font-size: 12px;
+   font-weight: 600;
+
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+
+.stat-content h3 {
+   margin: 0;
+
+   overflow: hidden;
+
+   color: var(--text-primary);
+
+   font-size: 21px;
+   line-height: 1.2;
+   font-weight: 700;
+
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+
+.stat-change {
+   display: inline-flex;
+   align-items: center;
+
+   gap: 4px;
+
+   font-size: 11px;
+   font-weight: 600;
+}
+
+.stat-change span {
+   margin-left: 2px;
+
+   color: var(--text-subtle);
+}
+
+
+.stat-subtext {
+   overflow: hidden;
+
+   color: var(--text-subtle);
+
+   font-size: 11px;
+   font-weight: 500;
+
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+
+.market-stats-loading {
+   width: 100%;
+
+   min-height: 140px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   margin-bottom: 32px;
+
+   background: var(--surface);
+
+   border: 1px solid var(--border);
+   border-radius: 16px;
+
+   color: var(--text-muted);
+}
+
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+.dark-theme .stat-card {
+   background: var(--surface);
+}
+
+.dark-theme .stat-icon {
+   background: #1c2a44;
+   color: #60a5fa;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+   .market-stats-grid {
+      grid-template-columns:
+         repeat(2, minmax(0, 1fr));
+   }
+}
+
+
+@media (max-width: 600px) {
+   .market-stats-grid {
+      grid-template-columns: 1fr;
+
+      gap: 14px;
+
+      margin-bottom: 28px;
+   }
+
+   .stat-card {
+      padding: 18px;
+   }
+}
+
+
+@media (max-width: 380px) {
+   .stat-card {
+      gap: 12px;
+
+      padding: 16px;
+   }
+
+   .stat-icon {
+      width: 42px;
+      height: 42px;
+
+      min-width: 42px;
+   }
+
+   .stat-content h3 {
+      font-size: 19px;
+   }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+   .stat-card {
+      transition: none;
+   }
+}

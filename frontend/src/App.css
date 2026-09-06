@@ -1,0 +1,262 @@
+/* =========================================================
+   GLOBAL APP STYLES
+========================================================= */
+
+:root {
+  /* Layout */
+  --sidebar-width: 250px;
+  --sidebar-width-tablet: 220px;
+  --sidebar-width-compact: 76px;
+
+  --navbar-height: 68px;
+  --navbar-height-tablet: 64px;
+  --navbar-height-mobile: 60px;
+
+  /* Colors */
+  --bg-primary: #f8fafc;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+
+  --border: #e5e7eb;
+  --border-strong: #cbd5e1;
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+
+  --success: #16a34a;
+  --danger: #dc2626;
+
+  /* Shadows */
+  --shadow-sm:
+    0 1px 3px rgba(15, 23, 42, 0.06);
+
+  --shadow-md:
+    0 10px 30px rgba(15, 23, 42, 0.08);
+
+  /* Motion */
+  --transition: 0.2s ease;
+}
+
+/* =========================================================
+   APP ROOT
+========================================================= */
+
+.app-layout {
+  position: relative;
+
+  width: 100%;
+  min-width: 320px;
+
+  /*
+     Do not use a fixed height here.
+     Content is allowed to determine document height.
+  */
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background: var(--bg-primary);
+
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   MAIN APPLICATION AREA
+========================================================= */
+
+.app-main {
+  position: relative;
+
+  width: calc(100% - var(--sidebar-width));
+  min-width: 0;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin-left: var(--sidebar-width);
+
+  padding-top: var(--navbar-height);
+
+  background: var(--bg-primary);
+
+  /*
+     Important:
+     The main application itself should NOT create
+     another vertical scrollbar.
+  */
+  overflow-x: hidden;
+
+  transition:
+    width var(--transition),
+    margin-left var(--transition),
+    padding-top var(--transition);
+}
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  /*
+     Don't force exactly 100vh here.
+     Pages can naturally become taller when content grows.
+  */
+  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100dvh - var(--navbar-height));
+
+  margin: 0;
+  padding: 0;
+
+  background: var(--bg-primary);
+
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   COMMON CARD
+========================================================= */
+
+.card {
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: var(--shadow-sm);
+}
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+.dark-theme {
+  --bg-primary: #101218;
+
+  --surface: #151821;
+  --surface-muted: #1c202b;
+
+  --text-primary: #f3f4f6;
+  --text-secondary: #cbd5e1;
+  --text-muted: #8b93a7;
+  --text-subtle: #70788c;
+
+  --border: #252936;
+  --border-strong: #303542;
+
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+
+  --shadow-sm:
+    0 1px 3px rgba(0, 0, 0, 0.16);
+
+  --shadow-md:
+    0 10px 30px rgba(0, 0, 0, 0.24);
+}
+
+/* =========================================================
+   DARK APP BACKGROUNDS
+========================================================= */
+
+.dark-theme .app-layout,
+.dark-theme .app-main,
+.dark-theme .main-content {
+  background: var(--bg-primary);
+}
+
+/*
+   Prevent white showing behind the application
+   if the browser performs overscroll.
+*/
+.dark-theme {
+  background: var(--bg-primary);
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+  .app-main {
+    width: calc(100% - var(--sidebar-width-tablet));
+
+    margin-left: var(--sidebar-width-tablet);
+
+    padding-top: var(--navbar-height-tablet);
+  }
+
+  .main-content {
+    min-height: calc(100vh - var(--navbar-height-tablet));
+    min-height: calc(100dvh - var(--navbar-height-tablet));
+  }
+}
+
+/* =========================================================
+   COMPACT TABLET
+========================================================= */
+
+@media (max-width: 850px) and (min-width: 601px) {
+  .app-main {
+    width: calc(100% - var(--sidebar-width-compact));
+
+    margin-left: var(--sidebar-width-compact);
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+  .app-main {
+    width: 100%;
+
+    margin-left: 0;
+
+    padding-top: var(--navbar-height-mobile);
+  }
+
+  .main-content {
+    width: 100%;
+
+    min-height: calc(100vh - var(--navbar-height-mobile));
+    min-height: calc(100dvh - var(--navbar-height-mobile));
+
+    /*
+       Space for bottom navigation.
+       Only apply this if your mobile navigation
+       is fixed at the bottom.
+    */
+    padding-bottom:
+      calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* =========================================================
+   VERY SMALL DEVICES
+========================================================= */
+
+@media (max-width: 360px) {
+  .main-content {
+    padding-bottom:
+      calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .app-main {
+    transition: none;
+  }
+}

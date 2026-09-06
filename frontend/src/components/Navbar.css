@@ -1,0 +1,805 @@
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+   position: fixed;
+   top: 0;
+   right: 0;
+
+   z-index: 1000;
+
+   width: calc(100% - 250px);
+   height: 68px;
+
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+   padding: 0 20px;
+
+   box-sizing: border-box;
+
+   background: rgba(21, 24, 33, 0.94);
+
+   border-bottom: 1px solid #252936;
+
+   backdrop-filter: blur(18px);
+   -webkit-backdrop-filter: blur(18px);
+
+   transition:
+      width 0.25s ease,
+      background-color 0.25s ease,
+      border-color 0.25s ease;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.navbar-brand {
+   min-width: 0;
+
+   display: flex;
+   align-items: center;
+
+   gap: 10px;
+
+   padding: 0;
+
+   border: 0;
+   background: transparent;
+
+   color: #f3f4f6;
+
+   cursor: pointer;
+
+   text-decoration: none;
+}
+
+
+.navbar-logo {
+   width: 38px;
+   height: 38px;
+
+   flex-shrink: 0;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   border-radius: 10px;
+
+   background: #f3f4f6;
+   color: #111827;
+
+   transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
+}
+
+
+.navbar-brand span {
+   min-width: 0;
+
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+
+   font-size: 14px;
+   font-weight: 700;
+
+   letter-spacing: -0.01em;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+   .navbar-brand:hover .navbar-logo {
+      transform: translateY(-1px);
+   }
+
+}
+
+
+/* =========================================================
+   NAVBAR ACTIONS
+========================================================= */
+
+.navbar-actions {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+
+   gap: 10px;
+
+   min-width: 0;
+
+   flex-shrink: 0;
+
+   overflow: visible;
+}
+
+
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+
+.theme-toggle {
+   width: 42px;
+   height: 42px;
+
+   min-width: 42px;
+   min-height: 42px;
+
+   flex-shrink: 0;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   padding: 0;
+
+   box-sizing: border-box;
+
+   border: 1px solid #303542;
+   border-radius: 10px;
+
+   background: #1c202b;
+   color: #cbd5e1;
+
+   cursor: pointer;
+
+   transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+   .theme-toggle:hover {
+      background: #252a36;
+
+      border-color: #3b4252;
+
+      color: #ffffff;
+
+      transform: translateY(-1px);
+   }
+
+}
+
+
+.theme-toggle:active {
+   transform: translateY(0);
+}
+
+
+/* =========================================================
+   PROFILE WRAPPER
+========================================================= */
+
+.profile-wrapper {
+   position: relative;
+
+   display: flex;
+   align-items: center;
+
+   flex-shrink: 0;
+
+   overflow: visible;
+}
+
+
+/* =========================================================
+   PROFILE TRIGGER
+   No circular avatar
+========================================================= */
+
+.profile-trigger {
+   width: 42px;
+   height: 42px;
+
+   min-width: 42px;
+   min-height: 42px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   padding: 0;
+
+   box-sizing: border-box;
+
+   flex-shrink: 0;
+
+   border: 1px solid #303542;
+   border-radius: 10px;
+
+   background: #1c202b;
+
+   color: #94a3b8;
+
+   cursor: pointer;
+
+   transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.2s ease;
+}
+
+
+/* Remove avatar completely */
+
+.profile-avatar {
+   display: none !important;
+}
+
+
+/* =========================================================
+   PROFILE TRIGGER HOVER
+========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+   .profile-trigger:hover {
+      background: #252a36;
+
+      border-color: #3b4252;
+
+      color: #ffffff;
+   }
+
+}
+
+
+.profile-trigger.open {
+   background: #252a36;
+
+   border-color: #3b4252;
+
+   color: #ffffff;
+
+   box-shadow:
+      0 0 0 3px rgba(96, 165, 250, 0.08);
+}
+
+
+/* =========================================================
+   PROFILE CHEVRON
+========================================================= */
+
+.profile-chevron {
+   width: 17px !important;
+   height: 17px !important;
+
+   min-width: 17px;
+
+   flex-shrink: 0;
+
+   transition:
+      transform 0.2s ease;
+}
+
+
+.profile-trigger.open .profile-chevron {
+   transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+.profile-dropdown {
+   position: absolute;
+
+   top: calc(100% + 10px);
+   right: 0;
+
+   width: 260px;
+   max-width: calc(100vw - 24px);
+
+   padding: 8px;
+
+   box-sizing: border-box;
+
+   background: #151821;
+
+   border: 1px solid #303542;
+
+   border-radius: 14px;
+
+   box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.35);
+
+   overflow: hidden;
+
+   animation: profileDropdown 0.18s ease;
+}
+
+
+@keyframes profileDropdown {
+
+   from {
+      opacity: 0;
+      transform: translateY(-5px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN HEADER
+========================================================= */
+
+.profile-dropdown-header {
+   display: flex;
+   align-items: center;
+
+   gap: 11px;
+
+   padding: 10px;
+}
+
+
+/* Keep avatar inside dropdown */
+
+.profile-dropdown-avatar {
+   width: 42px !important;
+   height: 42px !important;
+
+   min-width: 42px !important;
+   max-width: 42px !important;
+
+   min-height: 42px !important;
+   max-height: 42px !important;
+
+   flex: 0 0 42px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   box-sizing: border-box;
+
+   border-radius: 50%;
+
+   background: #f3f4f6;
+   color: #111827;
+
+   font-size: 13px;
+   line-height: 1;
+   font-weight: 700;
+
+   letter-spacing: 0.03em;
+}
+
+
+.profile-dropdown-info {
+   min-width: 0;
+
+   display: flex;
+   flex-direction: column;
+
+   gap: 3px;
+
+   overflow: hidden;
+}
+
+
+.profile-dropdown-info strong {
+   width: 100%;
+
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+
+   color: #f3f4f6;
+
+   font-size: 13px;
+   font-weight: 700;
+}
+
+
+.profile-dropdown-info span {
+   width: 100%;
+
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+
+   color: #8b93a7;
+
+   font-size: 11px;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.profile-dropdown-divider {
+   height: 1px;
+
+   margin: 4px 0;
+
+   background: #303542;
+}
+
+
+/* =========================================================
+   PROFILE MENU ITEMS
+========================================================= */
+
+.profile-menu-item {
+   width: 100%;
+   min-height: 42px;
+
+   display: flex;
+   align-items: center;
+
+   gap: 10px;
+
+   padding: 0 10px;
+
+   box-sizing: border-box;
+
+   border: 0;
+   border-radius: 9px;
+
+   background: transparent;
+
+   color: #cbd5e1;
+
+   font-family: inherit;
+   font-size: 12px;
+   font-weight: 600;
+
+   text-align: left;
+
+   cursor: pointer;
+
+   transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+}
+
+
+.profile-menu-item svg {
+   width: 17px;
+   height: 17px;
+
+   flex-shrink: 0;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+   .profile-menu-item:hover {
+      background: #1c202b;
+
+      color: #ffffff;
+   }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.logout-menu-item {
+   color: #f87171;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+   .logout-menu-item:hover {
+      background: #2a1b20;
+
+      color: #f87171;
+   }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.theme-toggle:focus-visible,
+.profile-trigger:focus-visible,
+.profile-menu-item:focus-visible,
+.navbar-brand:focus-visible {
+   outline: 2px solid #60a5fa;
+
+   outline-offset: 3px;
+}
+
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+html:not(.dark-theme) .navbar {
+   background: rgba(255, 255, 255, 0.94);
+
+   border-color: #e5e7eb;
+}
+
+
+html:not(.dark-theme) .navbar-brand {
+   color: #0f172a;
+}
+
+
+html:not(.dark-theme) .navbar-logo {
+   background: #0f172a;
+
+   color: #ffffff;
+}
+
+
+html:not(.dark-theme) .theme-toggle {
+   background: #ffffff;
+
+   border-color: #e2e8f0;
+
+   color: #64748b;
+}
+
+
+html:not(.dark-theme) .profile-trigger {
+   background: #ffffff;
+
+   border-color: #e2e8f0;
+
+   color: #64748b;
+}
+
+
+html:not(.dark-theme) .profile-trigger.open {
+   background: #f8fafc;
+
+   border-color: #cbd5e1;
+
+   color: #0f172a;
+
+   box-shadow:
+      0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+
+html:not(.dark-theme) .profile-dropdown {
+   background: #ffffff;
+
+   border-color: #e2e8f0;
+
+   box-shadow:
+      0 16px 40px rgba(15, 23, 42, 0.12),
+      0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+
+html:not(.dark-theme) .profile-dropdown-avatar {
+   background: #0f172a;
+
+   color: #ffffff;
+}
+
+
+html:not(.dark-theme) .profile-dropdown-info strong {
+   color: #0f172a;
+}
+
+
+html:not(.dark-theme) .profile-dropdown-info span {
+   color: #64748b;
+}
+
+
+html:not(.dark-theme) .profile-dropdown-divider {
+   background: #e5e7eb;
+}
+
+
+html:not(.dark-theme) .profile-menu-item {
+   color: #475569;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+   html:not(.dark-theme) .theme-toggle:hover {
+      background: #f8fafc;
+
+      border-color: #cbd5e1;
+
+      color: #0f172a;
+   }
+
+
+   html:not(.dark-theme) .profile-trigger:hover {
+      background: #f8fafc;
+
+      border-color: #cbd5e1;
+
+      color: #0f172a;
+   }
+
+
+   html:not(.dark-theme) .profile-menu-item:hover {
+      background: #f8fafc;
+
+      color: #0f172a;
+   }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+   .navbar {
+      width: calc(100% - 220px);
+   }
+
+}
+
+
+/* =========================================================
+   COMPACT SIDEBAR
+========================================================= */
+
+@media (max-width: 850px) and (min-width: 601px) {
+
+   .navbar {
+      width: calc(100% - 76px);
+   }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+   .navbar {
+      width: 100%;
+
+      height: 60px;
+
+      gap: 10px;
+
+      padding: 0 12px;
+   }
+
+
+   .navbar-logo {
+      width: 34px;
+      height: 34px;
+   }
+
+
+   .navbar-brand span {
+      font-size: 13px;
+   }
+
+
+   .navbar-actions {
+      gap: 7px;
+   }
+
+
+   .theme-toggle {
+      width: 40px;
+      height: 40px;
+
+      min-width: 40px;
+      min-height: 40px;
+   }
+
+
+   .profile-trigger {
+      width: 40px;
+      height: 40px;
+
+      min-width: 40px;
+      min-height: 40px;
+
+      border-radius: 10px;
+   }
+
+
+   .profile-chevron {
+      width: 16px !important;
+      height: 16px !important;
+   }
+
+
+   .profile-dropdown {
+      position: fixed;
+
+      top: 70px;
+      right: 12px;
+
+      width: min(280px, calc(100vw - 24px));
+   }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+   .navbar-brand span {
+      max-width: 120px;
+
+      font-size: 12px;
+   }
+
+
+   .navbar-actions {
+      gap: 5px;
+   }
+
+
+   .theme-toggle {
+      width: 38px;
+      height: 38px;
+
+      min-width: 38px;
+      min-height: 38px;
+   }
+
+
+   .profile-trigger {
+      width: 38px;
+      height: 38px;
+
+      min-width: 38px;
+      min-height: 38px;
+   }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+   .navbar,
+   .navbar-logo,
+   .theme-toggle,
+   .profile-trigger,
+   .profile-chevron,
+   .profile-menu-item,
+   .profile-dropdown {
+      transition: none;
+
+      animation: none;
+   }
+
+}

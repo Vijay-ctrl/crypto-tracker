@@ -1,0 +1,37 @@
+/* =========================================================
+   PRICE CHART
+========================================================= */
+
+.price-chart {
+   width: 130px;
+   height: 44px;
+
+   min-width: 130px;
+}
+
+.chart-empty {
+   width: 130px;
+   height: 44px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   color: var(--text-subtle);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+   .price-chart {
+      width: 120px;
+      min-width: 120px;
+   }
+
+   .chart-empty {
+      width: 120px;
+   }
+}

@@ -1,0 +1,191 @@
+/* =========================================================
+   GLOBAL RESET & BASE STYLES
+========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-width: 320px;
+
+  margin: 0;
+  padding: 0;
+
+  background: #f8fafc;
+
+  /* Prevent horizontal page movement */
+  overflow-x: hidden;
+
+  /* Better mobile viewport handling */
+  min-height: 100%;
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+
+  margin: 0;
+  padding: 0;
+
+  background: #f8fafc;
+  color: #0f172a;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  /* Never allow horizontal overscroll */
+  overflow-x: hidden;
+
+  /*
+    Use dynamic viewport where supported.
+    This behaves better on mobile browsers where
+    the browser address bar changes the viewport height.
+  */
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+#root {
+  width: 100%;
+  min-width: 320px;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0;
+  padding: 0;
+
+  background: inherit;
+}
+
+/* =========================================================
+   FORM ELEMENTS
+========================================================= */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button,
+input,
+textarea,
+select {
+  outline: none;
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   MEDIA
+========================================================= */
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+/* =========================================================
+   DARK MODE BASE
+========================================================= */
+
+html.dark-theme,
+body.dark-theme,
+#root.dark-theme {
+  background: #101218;
+  color: #f3f4f6;
+}
+
+/*
+   If .dark-theme is placed on an app wrapper rather
+   than body/html, this still prevents a white background.
+*/
+.dark-theme {
+  color-scheme: dark;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.32);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  html,
+  body,
+  #root {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}

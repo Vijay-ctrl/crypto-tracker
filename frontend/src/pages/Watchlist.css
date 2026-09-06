@@ -1,0 +1,2159 @@
+/* =========================================================
+   WATCHLIST PAGE
+   Modern Crypto Dashboard
+========================================================= */
+
+:root {
+   --watchlist-bg: #f6f8fc;
+   --watchlist-surface: #ffffff;
+   --watchlist-surface-soft: #f8fafc;
+   --watchlist-border: #e7ebf2;
+   --watchlist-border-strong: #dce2eb;
+
+   --watchlist-text: #111827;
+   --watchlist-text-soft: #667085;
+   --watchlist-text-muted: #98a2b3;
+
+   --watchlist-primary: #111827;
+   --watchlist-primary-soft: #eef2ff;
+
+   --watchlist-green: #16a36a;
+   --watchlist-green-soft: #ecfdf3;
+
+   --watchlist-red: #e5484d;
+   --watchlist-red-soft: #fff1f2;
+
+   --watchlist-blue: #3867ff;
+   --watchlist-blue-soft: #eef4ff;
+
+   --watchlist-purple: #7c4dff;
+   --watchlist-purple-soft: #f4efff;
+
+   --watchlist-radius-sm: 10px;
+   --watchlist-radius-md: 16px;
+   --watchlist-radius-lg: 22px;
+
+   --watchlist-shadow-sm:
+      0 1px 2px rgba(16, 24, 40, 0.04);
+
+   --watchlist-shadow:
+      0 10px 30px rgba(16, 24, 40, 0.06);
+
+   --watchlist-transition:
+      180ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.watchlist-page {
+   min-height: 100vh;
+   width: 100%;
+   background:
+      radial-gradient(circle at 85% 0%,
+         rgba(56, 103, 255, 0.055),
+         transparent 28rem),
+      var(--watchlist-bg);
+
+   color: var(--watchlist-text);
+}
+
+
+.watchlist-content {
+   width: 100%;
+   max-width: 1600px;
+
+   margin: 0 auto;
+
+   padding:
+      108px 32px 48px;
+
+   box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.watchlist-header {
+   display: flex;
+   align-items: flex-end;
+   justify-content: space-between;
+   gap: 28px;
+
+   margin-bottom: 16px;
+}
+
+
+.watchlist-heading {
+   min-width: 0;
+}
+
+
+.watchlist-title-row {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+}
+
+
+.watchlist-title-icon {
+   width: 48px;
+   height: 48px;
+
+   display: grid;
+   place-items: center;
+
+   flex: 0 0 48px;
+
+   border-radius: 15px;
+
+   background:
+      linear-gradient(135deg,
+         #111827,
+         #344054);
+
+   color: #ffffff;
+
+   box-shadow:
+      0 8px 22px rgba(17, 24, 39, 0.16);
+}
+
+
+.watchlist-eyebrow {
+   margin-bottom: 4px;
+
+   color: var(--watchlist-text-muted);
+
+   font-size: 11px;
+   font-weight: 800;
+   letter-spacing: 0.13em;
+   text-transform: uppercase;
+}
+
+
+.watchlist-heading h1 {
+   margin: 0;
+
+   font-size: clamp(30px, 3vw, 42px);
+   line-height: 1.05;
+
+   letter-spacing: -0.045em;
+}
+
+
+.watchlist-heading>p {
+   max-width: 620px;
+
+   margin: 13px 0 0;
+
+   color: var(--watchlist-text-soft);
+
+   font-size: 14px;
+   line-height: 1.7;
+}
+
+
+.watchlist-header-actions {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+
+   flex-shrink: 0;
+}
+
+
+.watchlist-refresh-button,
+.watchlist-market-button {
+   min-height: 44px;
+
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: 9px;
+
+   padding: 0 16px;
+
+   border-radius: 12px;
+
+   font: inherit;
+   font-size: 13px;
+   font-weight: 700;
+
+   cursor: pointer;
+
+   transition:
+      transform var(--watchlist-transition),
+      background var(--watchlist-transition),
+      border-color var(--watchlist-transition),
+      box-shadow var(--watchlist-transition),
+      opacity var(--watchlist-transition);
+}
+
+
+.watchlist-refresh-button {
+   border: 1px solid var(--watchlist-border-strong);
+
+   background: var(--watchlist-surface);
+
+   color: var(--watchlist-text);
+
+   box-shadow: var(--watchlist-shadow-sm);
+}
+
+
+.watchlist-refresh-button:hover:not(:disabled) {
+   transform: translateY(-1px);
+
+   border-color: #cbd3df;
+
+   box-shadow: var(--watchlist-shadow);
+}
+
+
+.watchlist-refresh-button:disabled {
+   cursor: not-allowed;
+   opacity: 0.6;
+}
+
+
+.watchlist-market-button {
+   border: 1px solid var(--watchlist-primary);
+
+   background: var(--watchlist-primary);
+
+   color: #ffffff;
+
+   box-shadow:
+      0 7px 18px rgba(17, 24, 39, 0.12);
+}
+
+
+.watchlist-market-button:hover {
+   transform: translateY(-1px);
+
+   background: #252f3f;
+
+   box-shadow:
+      0 10px 24px rgba(17, 24, 39, 0.16);
+}
+
+
+.watchlist-refresh-button:focus-visible,
+.watchlist-market-button:focus-visible {
+   outline: 3px solid rgba(56, 103, 255, 0.22);
+   outline-offset: 2px;
+}
+
+
+.spinning {
+   animation:
+      watchlist-spin 0.85s linear infinite;
+}
+
+
+@keyframes watchlist-spin {
+   to {
+      transform: rotate(360deg);
+   }
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.watchlist-status-row {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+
+   min-height: 28px;
+
+   margin-bottom: 22px;
+}
+
+
+.watchlist-live-status {
+   display: inline-flex;
+   align-items: center;
+   gap: 7px;
+
+   color: #475467;
+
+   font-size: 12px;
+   font-weight: 600;
+}
+
+
+.live-dot {
+   width: 7px;
+   height: 7px;
+
+   border-radius: 50%;
+
+   background: #19b875;
+
+   box-shadow:
+      0 0 0 4px rgba(25, 184, 117, 0.11);
+
+   animation:
+      live-pulse 2s ease-in-out infinite;
+}
+
+
+@keyframes live-pulse {
+
+   0%,
+   100% {
+      opacity: 1;
+   }
+
+   50% {
+      opacity: 0.55;
+   }
+}
+
+
+.watchlist-updated {
+   color: var(--watchlist-text-muted);
+
+   font-size: 12px;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.watchlist-error {
+   display: flex;
+   align-items: center;
+   gap: 13px;
+
+   margin-bottom: 20px;
+
+   padding: 14px 16px;
+
+   border: 1px solid #ffd5d8;
+   border-radius: 14px;
+
+   background: #fff8f8;
+}
+
+
+.error-symbol {
+   width: 32px;
+   height: 32px;
+
+   display: grid;
+   place-items: center;
+
+   flex: 0 0 32px;
+
+   border-radius: 10px;
+
+   background: #ffe4e6;
+
+   color: #d92d20;
+
+   font-weight: 900;
+}
+
+
+.error-content {
+   min-width: 0;
+   flex: 1;
+}
+
+
+.error-content strong {
+   display: block;
+
+   color: #b42318;
+
+   font-size: 13px;
+}
+
+
+.error-content p {
+   margin: 3px 0 0;
+
+   color: #667085;
+
+   font-size: 12px;
+   line-height: 1.5;
+}
+
+
+.error-actions {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+
+.watchlist-error-button {
+   min-height: 34px;
+
+   padding: 0 12px;
+
+   border: 0;
+   border-radius: 9px;
+
+   background: #b42318;
+
+   color: #ffffff;
+
+   font: inherit;
+   font-size: 12px;
+   font-weight: 700;
+
+   cursor: pointer;
+}
+
+
+.watchlist-error-button.secondary {
+   background: #ffffff;
+
+   border: 1px solid #f0b8bc;
+
+   color: #b42318;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.watchlist-summary {
+   display: grid;
+   grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+   gap: 14px;
+
+   margin-bottom: 20px;
+}
+
+
+.watchlist-summary-card {
+   position: relative;
+
+   min-height: 102px;
+
+   display: flex;
+   align-items: center;
+
+   gap: 13px;
+
+   overflow: hidden;
+
+   padding: 18px;
+
+   border: 1px solid var(--watchlist-border);
+
+   border-radius: var(--watchlist-radius-md);
+
+   background: var(--watchlist-surface);
+
+   box-shadow: var(--watchlist-shadow-sm);
+
+   transition:
+      transform var(--watchlist-transition),
+      box-shadow var(--watchlist-transition),
+      border-color var(--watchlist-transition);
+}
+
+
+.watchlist-summary-card:hover {
+   transform: translateY(-2px);
+
+   border-color: var(--watchlist-border-strong);
+
+   box-shadow: var(--watchlist-shadow);
+}
+
+
+.summary-card-icon {
+   width: 43px;
+   height: 43px;
+
+   display: grid;
+   place-items: center;
+
+   flex: 0 0 43px;
+
+   border-radius: 12px;
+}
+
+
+.summary-card-icon.blue {
+   background: var(--watchlist-blue-soft);
+   color: var(--watchlist-blue);
+}
+
+
+.summary-card-icon.green {
+   background: var(--watchlist-green-soft);
+   color: var(--watchlist-green);
+}
+
+
+.summary-card-icon.purple {
+   background: var(--watchlist-purple-soft);
+   color: var(--watchlist-purple);
+}
+
+
+.summary-card-content {
+   position: relative;
+   z-index: 2;
+
+   display: flex;
+   flex-direction: column;
+
+   gap: 4px;
+}
+
+
+.summary-card-content span {
+   color: var(--watchlist-text-soft);
+
+   font-size: 12px;
+   font-weight: 600;
+}
+
+
+.summary-card-content strong {
+   color: var(--watchlist-text);
+
+   font-size: 22px;
+   line-height: 1;
+
+   letter-spacing: -0.025em;
+}
+
+
+.summary-card-decoration {
+   position: absolute;
+
+   right: 14px;
+   bottom: 5px;
+
+   color: #eef1f6;
+
+   pointer-events: none;
+}
+
+
+/* =========================================================
+   MAIN PANEL
+========================================================= */
+
+.watchlist-panel {
+   min-height: 300px;
+
+   overflow: hidden;
+
+   border: 1px solid var(--watchlist-border);
+
+   border-radius: var(--watchlist-radius-lg);
+
+   background: var(--watchlist-surface);
+
+   box-shadow: var(--watchlist-shadow);
+}
+
+
+/* =========================================================
+   ASSETS TOOLBAR
+========================================================= */
+
+.watchlist-assets {
+   width: 100%;
+}
+
+
+.assets-toolbar {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 20px;
+
+   padding: 22px 22px 18px;
+
+   border-bottom: 1px solid var(--watchlist-border);
+}
+
+
+.assets-heading {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+
+   min-width: 0;
+}
+
+
+.assets-heading h2 {
+   margin: 0;
+
+   color: var(--watchlist-text);
+
+   font-size: 18px;
+   line-height: 1.2;
+
+   letter-spacing: -0.025em;
+}
+
+
+.assets-heading p {
+   margin: 5px 0 0;
+
+   color: var(--watchlist-text-muted);
+
+   font-size: 12px;
+}
+
+
+.asset-count {
+   display: inline-flex;
+   align-items: center;
+
+   min-height: 28px;
+
+   padding: 0 10px;
+
+   border: 1px solid #e4e8ef;
+   border-radius: 999px;
+
+   background: #f8fafc;
+
+   color: #475467;
+
+   font-size: 11px;
+   font-weight: 800;
+
+   white-space: nowrap;
+}
+
+
+.watchlist-search {
+   width: min(300px, 100%);
+
+   min-height: 40px;
+
+   display: flex;
+   align-items: center;
+   gap: 8px;
+
+   padding: 0 11px;
+
+   border: 1px solid var(--watchlist-border-strong);
+   border-radius: 11px;
+
+   background: #fbfcfe;
+
+   color: var(--watchlist-text-muted);
+
+   transition:
+      border-color var(--watchlist-transition),
+      box-shadow var(--watchlist-transition),
+      background var(--watchlist-transition);
+}
+
+
+.watchlist-search:focus-within {
+   border-color: rgba(56, 103, 255, 0.55);
+
+   background: #ffffff;
+
+   box-shadow:
+      0 0 0 3px rgba(56, 103, 255, 0.09);
+}
+
+
+.watchlist-search input {
+   width: 100%;
+   min-width: 0;
+
+   border: 0;
+   outline: 0;
+
+   background: transparent;
+
+   color: var(--watchlist-text);
+
+   font: inherit;
+   font-size: 12px;
+}
+
+
+.watchlist-search input::placeholder {
+   color: #98a2b3;
+}
+
+
+.clear-search {
+   width: 25px;
+   height: 25px;
+
+   display: grid;
+   place-items: center;
+
+   flex: 0 0 25px;
+
+   padding: 0;
+
+   border: 0;
+   border-radius: 7px;
+
+   background: #edf0f5;
+
+   color: #667085;
+
+   cursor: pointer;
+}
+
+
+.clear-search:hover {
+   background: #e4e8ef;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.watchlist-table-header {
+   display: grid;
+
+   grid-template-columns:
+      minmax(260px, 2fr) minmax(130px, 1fr) minmax(130px, 1fr) minmax(140px, 1fr) 58px;
+
+   align-items: center;
+
+   min-height: 42px;
+
+   padding: 0 22px;
+
+   border-bottom: 1px solid var(--watchlist-border);
+
+   background: #fbfcfe;
+
+   color: #98a2b3;
+
+   font-size: 10px;
+   font-weight: 800;
+
+   letter-spacing: 0.07em;
+   text-transform: uppercase;
+}
+
+
+.watchlist-table-header span:not(:first-child) {
+   text-align: left;
+}
+
+
+/* =========================================================
+   COIN LIST
+========================================================= */
+
+.watchlist-coins {
+   width: 100%;
+}
+
+
+.watchlist-coin-card {
+   position: relative;
+
+   display: grid;
+
+   grid-template-columns:
+      minmax(260px, 2fr) minmax(130px, 1fr) minmax(130px, 1fr) minmax(140px, 1fr) 58px;
+
+   align-items: center;
+
+   min-height: 86px;
+
+   padding: 0 22px;
+
+   border-bottom: 1px solid #f0f2f5;
+
+   background: #ffffff;
+
+   cursor: pointer;
+
+   transition:
+      background var(--watchlist-transition),
+      transform var(--watchlist-transition),
+      box-shadow var(--watchlist-transition);
+}
+
+
+.watchlist-coin-card:last-child {
+   border-bottom: 0;
+}
+
+
+.watchlist-coin-card:hover {
+   z-index: 1;
+
+   background: #fafcff;
+
+   box-shadow:
+      inset 3px 0 0 var(--watchlist-blue);
+}
+
+
+.watchlist-coin-card:focus-visible {
+   z-index: 2;
+
+   outline: 3px solid rgba(56, 103, 255, 0.18);
+   outline-offset: -3px;
+}
+
+
+.watchlist-coin-card.is-removing {
+   opacity: 0.45;
+
+   transform: scale(0.995);
+
+   pointer-events: none;
+}
+
+
+/* =========================================================
+   COIN MAIN
+========================================================= */
+
+.watchlist-coin-main {
+   min-width: 0;
+
+   display: flex;
+   align-items: center;
+   gap: 13px;
+}
+
+
+.coin-avatar {
+   position: relative;
+
+   width: 44px;
+   height: 44px;
+
+   display: grid;
+   place-items: center;
+
+   flex: 0 0 44px;
+
+   overflow: hidden;
+
+   border: 1px solid #e8ecf2;
+   border-radius: 50%;
+
+   background: #f8fafc;
+
+   box-shadow:
+      0 2px 6px rgba(16, 24, 40, 0.05);
+}
+
+
+.coin-avatar img {
+   width: 100%;
+   height: 100%;
+
+   display: block;
+
+   object-fit: cover;
+}
+
+
+.coin-avatar-fallback {
+   width: 100%;
+   height: 100%;
+
+   align-items: center;
+   justify-content: center;
+
+   background:
+      linear-gradient(135deg,
+         #111827,
+         #475467);
+
+   color: #ffffff;
+
+   font-size: 15px;
+   font-weight: 800;
+}
+
+
+.watchlist-coin-name {
+   min-width: 0;
+
+   display: flex;
+   flex-direction: column;
+
+   gap: 5px;
+}
+
+
+.watchlist-name-line {
+   display: flex;
+   align-items: center;
+   gap: 7px;
+
+   min-width: 0;
+}
+
+
+.watchlist-name-line strong {
+   overflow: hidden;
+
+   color: #1d2939;
+
+   font-size: 14px;
+   line-height: 1.3;
+
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+
+.coin-rank {
+   display: inline-flex;
+   align-items: center;
+
+   flex: 0 0 auto;
+
+   padding: 3px 6px;
+
+   border-radius: 6px;
+
+   background: #f2f4f7;
+
+   color: #667085;
+
+   font-size: 9px;
+   font-weight: 800;
+}
+
+
+.coin-symbol {
+   color: #98a2b3;
+
+   font-size: 11px;
+   font-weight: 700;
+
+   letter-spacing: 0.04em;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.watchlist-price-cell {
+   display: flex;
+   flex-direction: column;
+   gap: 3px;
+}
+
+
+.watchlist-price-cell strong {
+   color: #1d2939;
+
+   font-size: 13px;
+   font-weight: 750;
+}
+
+
+.mobile-cell-label {
+   display: none;
+
+   color: #98a2b3;
+
+   font-size: 9px;
+   font-weight: 800;
+
+   letter-spacing: 0.06em;
+   text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CHANGE
+========================================================= */
+
+.watchlist-change {
+   display: flex;
+   align-items: center;
+}
+
+
+.change-pill {
+   display: inline-flex;
+   align-items: center;
+   gap: 5px;
+
+   min-height: 29px;
+
+   padding: 0 8px;
+
+   border-radius: 8px;
+
+   font-size: 11px;
+   font-weight: 800;
+}
+
+
+.watchlist-change.positive .change-pill {
+   background: var(--watchlist-green-soft);
+
+   color: #087443;
+}
+
+
+.watchlist-change.negative .change-pill {
+   background: var(--watchlist-red-soft);
+
+   color: #c43238;
+}
+
+
+/* =========================================================
+   MARKET CAP
+========================================================= */
+
+.watchlist-market-cap {
+   display: flex;
+   flex-direction: column;
+   gap: 3px;
+}
+
+
+.watchlist-market-cap strong {
+   color: #475467;
+
+   font-size: 13px;
+   font-weight: 700;
+}
+
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.watchlist-action {
+   display: flex;
+   justify-content: flex-end;
+}
+
+
+.watchlist-remove-btn {
+   width: 36px;
+   height: 36px;
+
+   display: grid;
+   place-items: center;
+
+   padding: 0;
+
+   border: 1px solid #e9edf2;
+   border-radius: 10px;
+
+   background: #ffffff;
+
+   color: #98a2b3;
+
+   cursor: pointer;
+
+   transition:
+      color var(--watchlist-transition),
+      background var(--watchlist-transition),
+      border-color var(--watchlist-transition),
+      transform var(--watchlist-transition);
+}
+
+
+.watchlist-remove-btn:hover:not(:disabled) {
+   transform: translateY(-1px);
+
+   border-color: #ffd1d5;
+
+   background: #fff5f5;
+
+   color: #d92d20;
+}
+
+
+.watchlist-remove-btn:focus-visible {
+   outline: 3px solid rgba(56, 103, 255, 0.18);
+   outline-offset: 2px;
+}
+
+
+.watchlist-remove-btn:disabled {
+   cursor: wait;
+   opacity: 0.6;
+}
+
+
+.remove-spinner {
+   width: 15px;
+   height: 15px;
+
+   border: 2px solid #e4e7ec;
+   border-top-color: #d92d20;
+
+   border-radius: 50%;
+
+   animation:
+      watchlist-spin 0.75s linear infinite;
+}
+
+
+.coin-row-arrow {
+   display: none;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.watchlist-empty {
+   position: relative;
+
+   min-height: 480px;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+
+   overflow: hidden;
+
+   padding: 70px 24px;
+
+   text-align: center;
+}
+
+
+.empty-orb {
+   position: absolute;
+
+   width: 280px;
+   height: 280px;
+
+   border-radius: 50%;
+
+   filter: blur(5px);
+
+   pointer-events: none;
+}
+
+
+.empty-orb-one {
+   top: -180px;
+   left: 10%;
+
+   background:
+      radial-gradient(circle,
+         rgba(56, 103, 255, 0.09),
+         transparent 70%);
+}
+
+
+.empty-orb-two {
+   right: -140px;
+   bottom: -170px;
+
+   background:
+      radial-gradient(circle,
+         rgba(124, 77, 255, 0.08),
+         transparent 70%);
+}
+
+
+.empty-icon {
+   position: relative;
+   z-index: 1;
+
+   width: 74px;
+   height: 74px;
+
+   display: grid;
+   place-items: center;
+
+   margin-bottom: 20px;
+
+   border: 1px solid #e4e8f0;
+   border-radius: 22px;
+
+   background:
+      linear-gradient(145deg,
+         #ffffff,
+         #f5f7fb);
+
+   color: #667085;
+
+   box-shadow:
+      0 14px 30px rgba(16, 24, 40, 0.07);
+}
+
+
+.empty-label {
+   position: relative;
+   z-index: 1;
+
+   margin-bottom: 8px;
+
+   color: #98a2b3;
+
+   font-size: 10px;
+   font-weight: 900;
+
+   letter-spacing: 0.16em;
+}
+
+
+.watchlist-empty h2 {
+   position: relative;
+   z-index: 1;
+
+   margin: 0;
+
+   color: #1d2939;
+
+   font-size: 27px;
+   line-height: 1.15;
+
+   letter-spacing: -0.035em;
+}
+
+
+.watchlist-empty>p {
+   position: relative;
+   z-index: 1;
+
+   max-width: 470px;
+
+   margin: 11px 0 22px;
+
+   color: #667085;
+
+   font-size: 13px;
+   line-height: 1.7;
+}
+
+
+.empty-explore-button {
+   position: relative;
+   z-index: 1;
+
+   min-height: 43px;
+
+   display: inline-flex;
+   align-items: center;
+   gap: 9px;
+
+   padding: 0 16px;
+
+   border: 0;
+   border-radius: 11px;
+
+   background: #111827;
+
+   color: #ffffff;
+
+   font: inherit;
+   font-size: 12px;
+   font-weight: 750;
+
+   cursor: pointer;
+
+   box-shadow:
+      0 8px 20px rgba(17, 24, 39, 0.15);
+
+   transition:
+      transform var(--watchlist-transition),
+      background var(--watchlist-transition),
+      box-shadow var(--watchlist-transition);
+}
+
+
+.empty-explore-button:hover {
+   transform: translateY(-2px);
+
+   background: #252f3f;
+
+   box-shadow:
+      0 12px 25px rgba(17, 24, 39, 0.18);
+}
+
+
+.empty-steps {
+   position: relative;
+   z-index: 1;
+
+   display: flex;
+   align-items: center;
+
+   margin-top: 44px;
+}
+
+
+.empty-step {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+
+.empty-step>span {
+   width: 27px;
+   height: 27px;
+
+   display: grid;
+   place-items: center;
+
+   border-radius: 8px;
+
+   background: #f2f4f7;
+
+   color: #667085;
+
+   font-size: 9px;
+   font-weight: 900;
+}
+
+
+.empty-step p {
+   margin: 0;
+
+   color: #667085;
+
+   font-size: 11px;
+   font-weight: 650;
+}
+
+
+.empty-step-arrow {
+   margin: 0 14px;
+
+   color: #d0d5dd;
+}
+
+
+/* =========================================================
+   SEARCH EMPTY
+========================================================= */
+
+.no-search-results {
+   min-height: 300px;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+
+   padding: 40px;
+
+   text-align: center;
+
+   color: #98a2b3;
+}
+
+
+.no-search-results svg {
+   margin-bottom: 10px;
+}
+
+
+.no-search-results strong {
+   color: #344054;
+
+   font-size: 14px;
+}
+
+
+.no-search-results p {
+   margin: 6px 0 15px;
+
+   color: #98a2b3;
+
+   font-size: 12px;
+}
+
+
+.no-search-results button {
+   min-height: 34px;
+
+   padding: 0 12px;
+
+   border: 1px solid #e4e7ec;
+   border-radius: 9px;
+
+   background: #ffffff;
+
+   color: #475467;
+
+   font: inherit;
+   font-size: 11px;
+   font-weight: 700;
+
+   cursor: pointer;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.watchlist-footer-note {
+   display: flex;
+   align-items: center;
+   gap: 7px;
+
+   padding: 15px 4px 0;
+
+   color: #98a2b3;
+
+   font-size: 10px;
+   line-height: 1.5;
+}
+
+
+.footer-market-note {
+   margin-left: auto;
+
+   color: #c43238;
+
+   font-weight: 700;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.watchlist-loading {
+   width: 100%;
+}
+
+
+.watchlist-loading-heading {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+
+   margin-bottom: 28px;
+}
+
+
+.loading-heading-copy {
+   flex: 1;
+}
+
+
+.skeleton {
+   position: relative;
+
+   overflow: hidden;
+
+   background: #e9edf3;
+}
+
+
+.skeleton::after {
+   content: "";
+
+   position: absolute;
+   inset: 0;
+
+   transform: translateX(-100%);
+
+   background:
+      linear-gradient(90deg,
+         transparent,
+         rgba(255, 255, 255, 0.7),
+         transparent);
+
+   animation:
+      skeleton-shimmer 1.45s infinite;
+}
+
+
+@keyframes skeleton-shimmer {
+   100% {
+      transform: translateX(100%);
+   }
+}
+
+
+.skeleton-icon {
+   width: 48px;
+   height: 48px;
+
+   flex: 0 0 48px;
+
+   border-radius: 15px;
+}
+
+
+.skeleton-small {
+   width: 150px;
+   height: 9px;
+
+   margin-bottom: 8px;
+
+   border-radius: 5px;
+}
+
+
+.skeleton-title {
+   width: 190px;
+   height: 29px;
+
+   margin-bottom: 10px;
+
+   border-radius: 7px;
+}
+
+
+.skeleton-description {
+   width: min(450px, 70vw);
+   height: 11px;
+
+   border-radius: 6px;
+}
+
+
+.skeleton-stats {
+   display: grid;
+   grid-template-columns:
+      repeat(3, 1fr);
+
+   gap: 14px;
+
+   margin-bottom: 20px;
+}
+
+
+.skeleton-stat {
+   height: 102px;
+
+   border-radius: 16px;
+}
+
+
+.watchlist-skeleton-list {
+   overflow: hidden;
+
+   border: 1px solid var(--watchlist-border);
+
+   border-radius: 22px;
+
+   background: #ffffff;
+}
+
+
+.watchlist-skeleton-row {
+   display: grid;
+
+   grid-template-columns:
+      44px minmax(150px, 1.7fr) minmax(100px, 1fr) minmax(90px, 1fr) 36px;
+
+   align-items: center;
+   gap: 12px;
+
+   min-height: 85px;
+
+   padding: 0 22px;
+
+   border-bottom: 1px solid #f0f2f5;
+}
+
+
+.watchlist-skeleton-row:last-child {
+   border-bottom: 0;
+}
+
+
+.skeleton-coin {
+   width: 44px;
+   height: 44px;
+
+   border-radius: 50%;
+}
+
+
+.skeleton-content {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+}
+
+
+.skeleton-name {
+   width: 130px;
+   height: 11px;
+
+   border-radius: 6px;
+}
+
+
+.skeleton-symbol {
+   width: 55px;
+   height: 8px;
+
+   border-radius: 5px;
+}
+
+
+.skeleton-data {
+   width: 85px;
+   height: 11px;
+
+   border-radius: 6px;
+}
+
+
+.skeleton-data.short {
+   width: 55px;
+}
+
+
+.skeleton-button {
+   width: 34px;
+   height: 34px;
+
+   border-radius: 9px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — LARGE TABLET
+========================================================= */
+
+@media (max-width: 1180px) {
+
+   .watchlist-content {
+      padding-left: 24px;
+      padding-right: 24px;
+   }
+
+
+   .watchlist-table-header,
+   .watchlist-coin-card {
+      grid-template-columns:
+         minmax(220px, 1.7fr) minmax(115px, 1fr) minmax(115px, 1fr) minmax(115px, 1fr) 52px;
+   }
+
+
+   .watchlist-table-header,
+   .watchlist-coin-card {
+      padding-left: 18px;
+      padding-right: 18px;
+   }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+   .watchlist-content {
+      padding-top: 96px;
+   }
+
+
+   .watchlist-header {
+      align-items: flex-start;
+      flex-direction: column;
+   }
+
+
+   .watchlist-header-actions {
+      width: 100%;
+   }
+
+
+   .watchlist-refresh-button,
+   .watchlist-market-button {
+      flex: 1;
+   }
+
+
+   .watchlist-summary {
+      grid-template-columns:
+         repeat(3, minmax(0, 1fr));
+   }
+
+
+   .watchlist-table-header {
+      grid-template-columns:
+         minmax(190px, 1.6fr) minmax(105px, 1fr) minmax(100px, 1fr) 52px;
+   }
+
+
+   .watchlist-coin-card {
+      grid-template-columns:
+         minmax(190px, 1.6fr) minmax(105px, 1fr) minmax(100px, 1fr) 52px;
+   }
+
+
+   .watchlist-table-header span:nth-child(4) {
+      display: none;
+   }
+
+
+   .watchlist-coin-card .watchlist-market-cap {
+      display: none;
+   }
+
+
+   .assets-toolbar {
+      align-items: flex-start;
+      flex-direction: column;
+   }
+
+
+   .watchlist-search {
+      width: 100%;
+   }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 680px) {
+
+   .watchlist-content {
+      padding:
+         86px 14px 30px;
+   }
+
+
+   .watchlist-title-icon {
+      width: 43px;
+      height: 43px;
+
+      flex-basis: 43px;
+
+      border-radius: 13px;
+   }
+
+
+   .watchlist-heading h1 {
+      font-size: 29px;
+   }
+
+
+   .watchlist-heading>p {
+      margin-top: 10px;
+
+      font-size: 12px;
+   }
+
+
+   .watchlist-header-actions {
+      gap: 8px;
+   }
+
+
+   .watchlist-refresh-button,
+   .watchlist-market-button {
+      min-height: 42px;
+
+      padding: 0 12px;
+
+      font-size: 11px;
+   }
+
+
+   .watchlist-status-row {
+      margin-bottom: 16px;
+   }
+
+
+   .watchlist-summary {
+      grid-template-columns:
+         1fr 1fr;
+
+      gap: 9px;
+   }
+
+
+   .watchlist-summary-card {
+      min-height: 84px;
+
+      padding: 13px;
+   }
+
+
+   .watchlist-summary-card:last-child {
+      grid-column: span 2;
+   }
+
+
+   .summary-card-icon {
+      width: 36px;
+      height: 36px;
+
+      flex-basis: 36px;
+   }
+
+
+   .summary-card-content strong {
+      font-size: 18px;
+   }
+
+
+   .summary-card-content span {
+      font-size: 10px;
+   }
+
+
+   .watchlist-panel {
+      border-radius: 17px;
+   }
+
+
+   .assets-toolbar {
+      padding: 17px 14px;
+   }
+
+
+   .assets-heading {
+      width: 100%;
+
+      justify-content: space-between;
+   }
+
+
+   .assets-heading h2 {
+      font-size: 16px;
+   }
+
+
+   .watchlist-table-header {
+      display: none;
+   }
+
+
+   .watchlist-coin-card {
+      display: grid;
+
+      grid-template-columns:
+         minmax(0, 1fr) auto auto;
+
+      grid-template-areas:
+         "coin price action"
+         "coin change action";
+
+      column-gap: 10px;
+
+      row-gap: 6px;
+
+      min-height: 96px;
+
+      padding:
+         14px;
+   }
+
+
+   .watchlist-coin-main {
+      grid-area: coin;
+
+      align-self: center;
+   }
+
+
+   .watchlist-price-cell {
+      grid-area: price;
+
+      align-items: flex-end;
+   }
+
+
+   .watchlist-change {
+      grid-area: change;
+
+      justify-content: flex-end;
+   }
+
+
+   .watchlist-market-cap {
+      display: none;
+   }
+
+
+   .watchlist-action {
+      grid-area: action;
+
+      align-self: center;
+   }
+
+
+   .watchlist-price-cell strong {
+      font-size: 12px;
+   }
+
+
+   .mobile-cell-label {
+      display: block;
+   }
+
+
+   .change-pill {
+      min-height: 25px;
+
+      padding: 0 7px;
+
+      font-size: 10px;
+   }
+
+
+   .watchlist-remove-btn {
+      width: 34px;
+      height: 34px;
+   }
+
+
+   .coin-row-arrow {
+      display: none;
+   }
+
+
+   .watchlist-coin-card:hover {
+      box-shadow:
+         inset 3px 0 0 var(--watchlist-blue);
+   }
+
+
+   .watchlist-empty {
+      min-height: 430px;
+
+      padding:
+         50px 20px;
+   }
+
+
+   .empty-icon {
+      width: 64px;
+      height: 64px;
+
+      border-radius: 19px;
+   }
+
+
+   .watchlist-empty h2 {
+      font-size: 24px;
+   }
+
+
+   .watchlist-empty>p {
+      font-size: 12px;
+   }
+
+
+   .empty-steps {
+      width: 100%;
+
+      justify-content: center;
+
+      margin-top: 34px;
+   }
+
+
+   .empty-step {
+      flex-direction: column;
+      gap: 5px;
+   }
+
+
+   .empty-step p {
+      font-size: 9px;
+
+      white-space: nowrap;
+   }
+
+
+   .empty-step-arrow {
+      margin:
+         0 7px;
+   }
+
+
+   .watchlist-error {
+      align-items: flex-start;
+      flex-wrap: wrap;
+   }
+
+
+   .error-actions {
+      width: 100%;
+
+      margin-left: 45px;
+   }
+
+
+   .watchlist-footer-note {
+      align-items: flex-start;
+
+      flex-wrap: wrap;
+   }
+
+
+   .footer-market-note {
+      width: 100%;
+
+      margin-left: 22px;
+   }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+   .watchlist-content {
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+
+
+   .watchlist-header-actions {
+      display: grid;
+
+      grid-template-columns:
+         1fr 1.4fr;
+   }
+
+
+   .watchlist-refresh-button span {
+      display: none;
+   }
+
+
+   .watchlist-refresh-button {
+      gap: 0;
+   }
+
+
+   .watchlist-market-button span {
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      white-space: nowrap;
+   }
+
+
+   .watchlist-summary-card {
+      padding: 11px;
+   }
+
+
+   .watchlist-coin-card {
+      grid-template-columns:
+         minmax(0, 1fr) auto 34px;
+
+      padding:
+         13px 11px;
+   }
+
+
+   .watchlist-coin-name {
+      gap: 3px;
+   }
+
+
+   .watchlist-name-line strong {
+      max-width: 120px;
+
+      font-size: 12px;
+   }
+
+
+   .coin-rank {
+      display: none;
+   }
+
+
+   .coin-avatar {
+      width: 39px;
+      height: 39px;
+
+      flex-basis: 39px;
+   }
+
+
+   .coin-symbol {
+      font-size: 9px;
+   }
+
+
+   .watchlist-price-cell strong {
+      font-size: 11px;
+   }
+
+
+   .watchlist-remove-btn {
+      width: 32px;
+      height: 32px;
+   }
+
+
+   .change-pill {
+      font-size: 9px;
+   }
+
+
+   .empty-steps {
+      gap: 0;
+   }
+
+
+   .empty-step-arrow {
+      margin:
+         0 4px;
+   }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+   *,
+   *::before,
+   *::after {
+      scroll-behavior: auto !important;
+
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+
+      transition-duration: 0.01ms !important;
+   }
+
+}
