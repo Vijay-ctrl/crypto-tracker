@@ -12,6 +12,9 @@
   --navbar-height-tablet: 64px;
   --navbar-height-mobile: 60px;
 
+  /* Mobile bottom navigation */
+  --mobile-nav-height: 72px;
+
   /* Colors */
   --bg-primary: #f8fafc;
   --surface: #ffffff;
@@ -42,6 +45,7 @@
   --transition: 0.2s ease;
 }
 
+
 /* =========================================================
    APP ROOT
 ========================================================= */
@@ -52,10 +56,6 @@
   width: 100%;
   min-width: 320px;
 
-  /*
-     Do not use a fixed height here.
-     Content is allowed to determine document height.
-  */
   min-height: 100vh;
   min-height: 100dvh;
 
@@ -63,6 +63,7 @@
 
   overflow-x: hidden;
 }
+
 
 /* =========================================================
    MAIN APPLICATION AREA
@@ -72,6 +73,7 @@
   position: relative;
 
   width: calc(100% - var(--sidebar-width));
+
   min-width: 0;
 
   min-height: 100vh;
@@ -81,13 +83,10 @@
 
   padding-top: var(--navbar-height);
 
+  box-sizing: border-box;
+
   background: var(--bg-primary);
 
-  /*
-     Important:
-     The main application itself should NOT create
-     another vertical scrollbar.
-  */
   overflow-x: hidden;
 
   transition:
@@ -95,6 +94,7 @@
     margin-left var(--transition),
     padding-top var(--transition);
 }
+
 
 /* =========================================================
    MAIN CONTENT
@@ -106,20 +106,20 @@
   width: 100%;
   min-width: 0;
 
-  /*
-     Don't force exactly 100vh here.
-     Pages can naturally become taller when content grows.
-  */
   min-height: calc(100vh - var(--navbar-height));
   min-height: calc(100dvh - var(--navbar-height));
 
   margin: 0;
+
   padding: 0;
+
+  box-sizing: border-box;
 
   background: var(--bg-primary);
 
   overflow-x: hidden;
 }
+
 
 /* =========================================================
    COMMON CARD
@@ -129,10 +129,12 @@
   background: var(--surface);
 
   border: 1px solid var(--border);
+
   border-radius: 14px;
 
   box-shadow: var(--shadow-sm);
 }
+
 
 /* =========================================================
    DARK THEME
@@ -162,6 +164,7 @@
     0 10px 30px rgba(0, 0, 0, 0.24);
 }
 
+
 /* =========================================================
    DARK APP BACKGROUNDS
 ========================================================= */
@@ -172,19 +175,18 @@
   background: var(--bg-primary);
 }
 
-/*
-   Prevent white showing behind the application
-   if the browser performs overscroll.
-*/
+
 .dark-theme {
   background: var(--bg-primary);
 }
+
 
 /* =========================================================
    TABLET
 ========================================================= */
 
 @media (max-width: 1100px) {
+
   .app-main {
     width: calc(100% - var(--sidebar-width-tablet));
 
@@ -193,36 +195,46 @@
     padding-top: var(--navbar-height-tablet);
   }
 
+
   .main-content {
     min-height: calc(100vh - var(--navbar-height-tablet));
     min-height: calc(100dvh - var(--navbar-height-tablet));
   }
+
 }
+
 
 /* =========================================================
    COMPACT TABLET
 ========================================================= */
 
 @media (max-width: 850px) and (min-width: 601px) {
+
   .app-main {
     width: calc(100% - var(--sidebar-width-compact));
 
     margin-left: var(--sidebar-width-compact);
   }
+
 }
+
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
 @media (max-width: 600px) {
+
   .app-main {
     width: 100%;
 
     margin-left: 0;
 
     padding-top: var(--navbar-height-mobile);
+
+    box-sizing: border-box;
   }
+
 
   .main-content {
     width: 100%;
@@ -231,32 +243,66 @@
     min-height: calc(100dvh - var(--navbar-height-mobile));
 
     /*
-       Space for bottom navigation.
-       Only apply this if your mobile navigation
-       is fixed at the bottom.
+       Reserve space for the fixed mobile bottom
+       navigation so the last content/card/button
+       is never hidden behind it.
     */
+
     padding-bottom:
-      calc(76px + env(safe-area-inset-bottom, 0px));
+      calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px) + 12px);
+
+    box-sizing: border-box;
   }
+
 }
+
 
 /* =========================================================
    VERY SMALL DEVICES
 ========================================================= */
 
-@media (max-width: 360px) {
+@media (max-width: 380px) {
+
+  :root {
+    --mobile-nav-height: 68px;
+  }
+
+
   .main-content {
     padding-bottom:
-      calc(72px + env(safe-area-inset-bottom, 0px));
+      calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px) + 10px);
   }
+
 }
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media (max-width: 850px) and (orientation: landscape) and (max-height: 500px) {
+
+  :root {
+    --mobile-nav-height: 60px;
+  }
+
+
+  .main-content {
+    padding-bottom:
+      calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px) + 8px);
+  }
+
+}
+
 
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   .app-main {
     transition: none;
   }
+
 }
