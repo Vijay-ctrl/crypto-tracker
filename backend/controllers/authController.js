@@ -14,6 +14,9 @@ const transporter = nodemailer.createTransport({
    port: 587,
    secure: false,
 
+   // Force IPv4 connection
+   family: 4,
+
    auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_APP_PASSWORD
@@ -151,11 +154,10 @@ const login = async (req, res) => {
          });
       }
 
-      const passwordMatch =
-         await bcrypt.compare(
-            password,
-            user.password
-         );
+      const passwordMatch = await bcrypt.compare(
+         password,
+         user.password
+      );
 
       if (!passwordMatch) {
          return res.status(401).json({
@@ -282,17 +284,12 @@ const forgotPassword = async (req, res) => {
          .digest("hex");
 
 
-      user.resetPasswordToken =
-         hashedToken;
-
+      user.resetPasswordToken = hashedToken;
 
       // Token expires in 15 minutes
-      user.resetPasswordExpires =
-         new Date(
-            Date.now() +
-            15 * 60 * 1000
-         );
-
+      user.resetPasswordExpires = new Date(
+         Date.now() + 15 * 60 * 1000
+      );
 
       await user.save();
 
@@ -329,7 +326,11 @@ const forgotPassword = async (req, res) => {
          subject:
             "CryptoTracker - Reset Your Password",
 
+
+         // =====================================
          // Plain Text Email
+         // =====================================
+
          text: `
 Hello ${user.name},
 
@@ -349,7 +350,11 @@ ${frontendUrl}
 CryptoTracker
          `,
 
+
+         // =====================================
          // HTML Email
+         // =====================================
+
          html: `
 <!DOCTYPE html>
 
@@ -407,7 +412,9 @@ CryptoTracker
             color: #ffffff;
             font-size: 22px;
          ">
+
             CryptoTracker
+
          </h2>
 
       </div>
@@ -425,7 +432,9 @@ CryptoTracker
             margin-top: 0;
             color: #0f172a;
          ">
+
             Reset your password
+
          </h2>
 
 
@@ -464,7 +473,9 @@ CryptoTracker
                   font-weight: bold;
                "
             >
+
                Reset Password
+
             </a>
 
          </div>
@@ -474,10 +485,12 @@ CryptoTracker
             font-size: 14px;
             color: #64748b;
          ">
+
             This link will expire in
             <strong>
                15 minutes
             </strong>.
+
          </p>
 
 
@@ -485,8 +498,10 @@ CryptoTracker
             font-size: 14px;
             color: #64748b;
          ">
+
             If you did not request this password
             reset, you can safely ignore this email.
+
          </p>
 
 
@@ -513,7 +528,9 @@ CryptoTracker
                   font-weight: bold;
                "
             >
+
                Back to CryptoTracker
+
             </a>
 
          </p>
@@ -534,6 +551,10 @@ CryptoTracker
          `
       });
 
+
+      // ========================================
+      // Success Response
+      // ========================================
 
       res.status(200).json({
          message:
@@ -583,12 +604,15 @@ const resetPassword = async (req, res) => {
 
       if (password.length < 6) {
          return res.status(400).json({
-            message: "Password must be at least 6 characters"
+            message:
+               "Password must be at least 6 characters"
          });
       }
 
 
+      // ========================================
       // Hash token received from URL
+      // ========================================
 
       const hashedToken = crypto
          .createHash("sha256")
@@ -596,7 +620,9 @@ const resetPassword = async (req, res) => {
          .digest("hex");
 
 
+      // ========================================
       // Find valid token
+      // ========================================
 
       const user = await User.findOne({
 
@@ -618,21 +644,22 @@ const resetPassword = async (req, res) => {
       }
 
 
+      // ========================================
       // Hash new password
+      // ========================================
 
-      user.password =
-         await bcrypt.hash(
-            password,
-            12
-         );
+      user.password = await bcrypt.hash(
+         password,
+         12
+      );
 
 
+      // ========================================
       // Remove reset token
+      // ========================================
 
       user.resetPasswordToken = null;
-
       user.resetPasswordExpires = null;
-
 
       await user.save();
 
