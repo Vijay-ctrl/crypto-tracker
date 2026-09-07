@@ -204,21 +204,9 @@ const Login = () => {
 
                   <div className="form-group">
 
-                     <div className="label-row">
-
-                        <label htmlFor="login-password">
-                           Password
-                        </label>
-
-                        <Link
-                           to="/forgot-password"
-                           className="forgot-link"
-                        >
-                           Forgot password?
-                        </Link>
-
-                     </div>
-
+                     <label htmlFor="login-password">
+                        Password
+                     </label>
 
                      <div className="input-wrapper password-wrapper">
 
@@ -241,7 +229,6 @@ const Login = () => {
                            disabled={loading}
                            required
                         />
-
 
                         <button
                            type="button"
